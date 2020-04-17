@@ -505,7 +505,7 @@ local CreateGamblerFrame = function()
 	
 	CloseButton.Texture = CloseButton:CreateTexture(nil, "OVERLAY")
 	CloseButton.Texture:SetPoint("CENTER", CloseButton, 0, 0)
-	CloseButton.Texture:SetScaledSize(16, 16)
+	CloseButton.Texture:SetSize(16, 16)
 	CloseButton.Texture:SetTexture("Interface\\AddOns\\vGambler\\vUIClose.tga")
 	
 	-- New Game
