@@ -5,6 +5,7 @@ local Rolls = {}
 local Players = {}
 local Channel = "RAID"
 local ChannelIndex = 2
+local CustomChannelIndex = 0
 local Locked = false
 local Me = UnitName("player")
 local DB = LibStub:GetLibrary("LibDataBroker-1.1")
@@ -27,6 +28,8 @@ local ChannelIndexList = {
 	[4] = "SAY",
 }
 
+local CustomChannels = {}
+
 local EventGroups = {
 	["PARTY"] = {
 		["CHAT_MSG_PARTY"] = true,
@@ -45,6 +48,10 @@ local EventGroups = {
 	
 	["SAY"] = {
 		["CHAT_MSG_SAY"] = true,
+	},
+	
+	["CHANNEL"] = {
+		["CHAT_MSG_CHANNEL"] = true,
 	},
 }
 
@@ -351,6 +358,17 @@ local OnEvent = function(self, event, message, sender)
 			DBIcon:Register("vGambler", DataObject)
 		end
 		
+		-- Find custom channels
+		local Name, Header, Collapsed, ChannelNumber
+		
+		for i = 1, GetNumDisplayChannels() do
+			Name, Header, Collapsed, ChannelNumber, Count, Active, Category = GetChannelDisplayInfo(i)
+			
+			if (Name and ChannelNumber and Category == "CHANNEL_CATEGORY_CUSTOM") then
+				CustomChannels[#CustomChannels + 1] = {ChannelNumber, Name}
+			end
+		end
+		
 		self:UnregisterEvent(event)
 	end
 end
@@ -612,15 +630,29 @@ local CreateGamblerFrame = function()
 	SetChannelButton:SetBackdropColor(0.22, 0.22, 0.22)
 	SetChannelButton:SetBackdropBorderColor(0, 0, 0)
 	SetChannelButton:SetScript("OnMouseUp", function(self)
-		ChannelIndex = ChannelIndex + 1
-		
-		if (ChannelIndex > 4) then
-			ChannelIndex = 1
+		if ((ChannelIndex == 4) and (#CustomChannels > 0)) then
+			CustomChannelIndex = CustomChannelIndex + 1
+			
+			Channel = "CHANNEL"
+			--print(CustomChannels[CustomChannelIndex][2])
+			self.Label:SetText(CustomChannels[CustomChannelIndex][2])
+			
+			if (CustomChannelIndex >= #CustomChannels) then
+				ChannelIndex = 1 -- Reset after we've cycled all valid channels and custom channels
+				CustomChannelIndex = 0
+			end
+		else
+			ChannelIndex = ChannelIndex + 1
+			
+			if (ChannelIndex > 4) then
+				ChannelIndex = 1
+			end
+			
+			Channel = ChannelIndexList[ChannelIndex]
+			
+			self.Label:SetText(ChannelToLabel[Channel])
 		end
 		
-		Channel = ChannelIndexList[ChannelIndex]
-		
-		self.Label:SetText(ChannelToLabel[Channel])
 	end)
 	SetChannelButton:SetScript("OnEnter", ButtonOnEnter)
 	SetChannelButton:SetScript("OnLeave", ButtonOnLeave)
