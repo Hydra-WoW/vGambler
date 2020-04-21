@@ -1,6 +1,6 @@
 -- Locals
 local EventFrame = CreateFrame("Frame")
-local CurrentRollValue = 10
+local CurrentRollValue = 1000
 local Rolls = {}
 local Players = {}
 local Channel = "RAID"
