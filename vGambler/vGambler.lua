@@ -1,11 +1,11 @@
 -- Locals
 local EventFrame = CreateFrame("Frame")
-local CurrentRollValue = 10000
+local CurrentRollValue = 10
 local Rolls = {}
 local Players = {}
 local Channel = "RAID"
 local ChannelIndex = 2
-local ChannelName
+local ChannelID
 local CustomChannelIndex = 0
 local Locked = false
 local Me = UnitName("player")
@@ -147,7 +147,7 @@ local SortRolls = function()
 	vGambler["Specific"][Winner[1]][Loser[1]] = vGambler["Specific"][Winner[1]][Loser[1]] + Diff
 	vGambler["Specific"][Loser[1]][Winner[1]] = vGambler["Specific"][Loser[1]][Winner[1]] - Diff
 	
-	SendChatMessage(format("vGambler: %s owes %s %s gold!", Loser[1], Winner[1], Comma(Diff)), Channel, nil, ChannelName)
+	SendChatMessage(format("vGambler: %s owes %s %s gold!", Loser[1], Winner[1], Comma(Diff)), Channel, nil, ChannelID)
 	
 	-- Reset everything
 	for i = #Rolls, 1, -1 do
@@ -163,7 +163,7 @@ end
 
 local PostStats = function(player, override, to)
 	local Target = Channel
-	local ChatChannel = ChannelName
+	local ChatChannel = ChannelID
 	
 	if override then
 		Target = override
@@ -335,9 +335,9 @@ local OnEvent = function(self, event, message, sender, ...)
 			
 			if Banned then
 				if (Reason == true) then -- No reason specified for this player being banned.
-					SendChatMessage(format("vGambler: %s is banned from entering.", sender), Channel, nil, ChannelName)
+					SendChatMessage(format("vGambler: %s is banned from entering.", sender), Channel, nil, ChannelID)
 				else -- Let them know why they were banned.
-					SendChatMessage(format("vGambler: %s is banned from entering. Reason: %s.", sender, Reason), Channel, nil, ChannelName)
+					SendChatMessage(format("vGambler: %s is banned from entering. Reason: %s.", sender, Reason), Channel, nil, ChannelID)
 				end
 				
 				return
@@ -411,7 +411,7 @@ local NewGame = function()
 		ResetGame()
 	end
 	
-	SendChatMessage(format("vGambler: New game started! Current roll is for %sg, type 1 to enter (-1 to leave).", Comma(CurrentRollValue)), Channel, nil, ChannelName)
+	SendChatMessage(format("vGambler: New game started! Current roll is for %sg, type 1 to enter (-1 to leave).", Comma(CurrentRollValue)), Channel, nil, ChannelID)
 	
 	for event in pairs(EventGroups[Channel]) do
 		EventFrame:RegisterEvent(event)
@@ -425,7 +425,7 @@ local NewGame = function()
 end
 
 local LastCall = function()
-	SendChatMessage("vGambler: Last call to enter!", Channel, nil, ChannelName)
+	SendChatMessage("vGambler: Last call to enter!", Channel, nil, ChannelID)
 	
 	DisableButton(LastCallButton)
 end
@@ -433,7 +433,7 @@ end
 local StillRoll = function()
 	for i = 1, #Players do
 		if (not Players[i][2]) then
-			SendChatMessage(format("vGambler: %s still needs to roll.", Players[i][1]), Channel, nil, ChannelName)
+			SendChatMessage(format("vGambler: %s still needs to roll.", Players[i][1]), Channel, nil, ChannelID)
 		end
 	end
 end
@@ -446,7 +446,7 @@ local CloseGame = function()
 			EventFrame:UnregisterAllEvents()
 			EventFrame:RegisterEvent("CHAT_MSG_SYSTEM")
 			
-			SendChatMessage("vGambler: Game is now closed! Roll!", Channel, nil, ChannelName)
+			SendChatMessage("vGambler: Game is now closed! Roll!", Channel, nil, ChannelID)
 			
 			if IsLeaderRolling() then
 				EnableButton(UserRollButton)
@@ -454,7 +454,7 @@ local CloseGame = function()
 			
 			Locked = true
 		else
-			SendChatMessage("vGambler: Not enough players!", Channel, nil, ChannelName)
+			SendChatMessage("vGambler: Not enough players!", Channel, nil, ChannelID)
 		end
 	end
 end
@@ -644,8 +644,7 @@ local CreateGamblerFrame = function()
 			CustomChannelIndex = CustomChannelIndex + 1
 			
 			Channel = "CHANNEL"
-			--print(CustomChannels[CustomChannelIndex][2])
-			ChannelName = CustomChannels[CustomChannelIndex][2]
+			ChannelID = CustomChannels[CustomChannelIndex][1]
 			
 			self.Label:SetText(format("|cffffc0c0%s|r", CustomChannels[CustomChannelIndex][2]))
 			
@@ -661,7 +660,7 @@ local CreateGamblerFrame = function()
 			end
 			
 			Channel = ChannelIndexList[ChannelIndex]
-			ChannelName = nil
+			ChannelID = nil
 			
 			self.Label:SetText(ChannelToLabel[Channel])
 		end
@@ -813,7 +812,7 @@ local CreateGamblerFrame = function()
 	EnterUserButton:SetBackdropColor(0.22, 0.22, 0.22)
 	EnterUserButton:SetBackdropBorderColor(0, 0, 0)
 	EnterUserButton:SetScript("OnMouseUp", function(self)
-		SendChatMessage("1", Channel, nil, ChannelName)
+		SendChatMessage("1", Channel, nil, ChannelID)
 		
 		DisableButton(self)
 		EnableButton(UserRollButton)
