@@ -474,7 +474,7 @@ end
 
 local Font = "Interface\\AddOns\\vGambler\\PTSans.ttf"
 local Texture = "Interface\\AddOns\\vGambler\\vUI4.tga"
-local Blank = "Interface\\AddOns\\vGambler\\Blank.tga"
+local Blank = "Interface\\AddOns\\vGambler\\vUIBlank.tga"
 
 local Backdrop = {
 	bgFile = Blank,
