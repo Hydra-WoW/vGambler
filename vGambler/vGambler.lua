@@ -485,7 +485,7 @@ local Backdrop = {
 
 -- Main panel
 local CreateGamblerFrame = function()
-	local vGamblerFrame = CreateFrame("Frame", "vGamblerFrame", UIParent)
+	local vGamblerFrame = CreateFrame("Frame", "vGamblerFrame", UIParent, "BackdropTemplate")
 	vGamblerFrame:SetSize(314, 105)
 	vGamblerFrame:SetPoint("CENTER", UIParent, 0, 99)
 	vGamblerFrame:SetBackdrop(Backdrop)
@@ -498,7 +498,7 @@ local CreateGamblerFrame = function()
 	vGamblerFrame:SetScript("OnDragStop", vGamblerFrame.StopMovingOrSizing)
 	
 	-- New Game
-	vGamblerFrame.Header = CreateFrame("Frame", nil, vGamblerFrame)
+	vGamblerFrame.Header = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	vGamblerFrame.Header:SetPoint("BOTTOM", vGamblerFrame, "TOP", 0, -1)
 	vGamblerFrame.Header:SetSize(314, 22)
 	vGamblerFrame.Header:SetBackdrop(Backdrop)
@@ -537,7 +537,7 @@ local CreateGamblerFrame = function()
 	CloseButton.Texture:SetTexture("Interface\\AddOns\\vGambler\\vUIClose.tga")
 	
 	-- New Game
-	NewGameButton = CreateFrame("Frame", nil, vGamblerFrame)
+	NewGameButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	NewGameButton:SetPoint("TOPLEFT", vGamblerFrame, 4, -4)
 	NewGameButton:SetSize(100, 22)
 	NewGameButton:SetBackdrop(Backdrop)
@@ -561,7 +561,7 @@ local CreateGamblerFrame = function()
 	NewGameButton.Label:SetShadowOffset(1, -1)
 	
 	-- Last Call
-	LastCallButton = CreateFrame("Frame", nil, vGamblerFrame)
+	LastCallButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	LastCallButton:SetPoint("TOPLEFT", NewGameButton, "BOTTOMLEFT", 0, -3)
 	LastCallButton:SetSize(100, 22)
 	LastCallButton:SetBackdrop(Backdrop)
@@ -585,7 +585,7 @@ local CreateGamblerFrame = function()
 	LastCallButton.Label:SetShadowOffset(1, -1)
 	
 	-- Roll
-	RollButton = CreateFrame("Frame", nil, vGamblerFrame)
+	RollButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	RollButton:SetPoint("TOPLEFT", LastCallButton, "BOTTOMLEFT", 0, -3)
 	RollButton:SetSize(100, 22)
 	RollButton:SetBackdrop(Backdrop)
@@ -609,7 +609,7 @@ local CreateGamblerFrame = function()
 	RollButton.Label:SetShadowOffset(1, -1)
 	
 	-- Reset Game
-	ResetGameButton = CreateFrame("Frame", nil, vGamblerFrame)
+	ResetGameButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	ResetGameButton:SetPoint("TOPLEFT", RollButton, "BOTTOMLEFT", 0, -3)
 	ResetGameButton:SetSize(100, 22)
 	ResetGameButton:SetBackdrop(Backdrop)
@@ -633,7 +633,7 @@ local CreateGamblerFrame = function()
 	ResetGameButton.Label:SetShadowOffset(1, -1)
 	
 	-- Set Channel
-	local SetChannelButton = CreateFrame("Frame", nil, vGamblerFrame)
+	local SetChannelButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	SetChannelButton:SetPoint("TOPLEFT", NewGameButton, "TOPRIGHT", 3, 0)
 	SetChannelButton:SetSize(100, 22)
 	SetChannelButton:SetBackdrop(Backdrop)
@@ -723,7 +723,7 @@ local CreateGamblerFrame = function()
 		self:SetText(Comma(CurrentRollValue))
 	end
 	
-	local RollValue = CreateFrame("Frame", nil, vGamblerFrame)
+	local RollValue = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	RollValue:SetPoint("TOPLEFT", SetChannelButton, "BOTTOMLEFT", 0, -3)
 	RollValue:SetSize(100, 22)
 	RollValue:SetBackdrop(Backdrop)
@@ -755,7 +755,7 @@ local CreateGamblerFrame = function()
 	RollValue.Box:SetScript("OnEditFocusLost", EditBoxOnEditFocusLost)
 	
 	-- Stats
-	local StatsButton = CreateFrame("Frame", nil, vGamblerFrame)
+	local StatsButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	StatsButton:SetPoint("TOPLEFT", RollValue, "BOTTOMLEFT", 0, -3)
 	StatsButton:SetSize(100, 22)
 	StatsButton:SetBackdrop(Backdrop)
@@ -781,7 +781,7 @@ local CreateGamblerFrame = function()
 	StatsButton.Label:SetShadowOffset(1, -1)
 	
 	-- Reset Stats
-	local ResetStatsButton = CreateFrame("Frame", nil, vGamblerFrame)
+	local ResetStatsButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	ResetStatsButton:SetPoint("TOPLEFT", StatsButton, "BOTTOMLEFT", 0, -3)
 	ResetStatsButton:SetSize(100, 22)
 	ResetStatsButton:SetBackdrop(Backdrop)
@@ -805,7 +805,7 @@ local CreateGamblerFrame = function()
 	ResetStatsButton.Label:SetShadowOffset(1, -1)
 	
 	-- Enter User
-	EnterUserButton = CreateFrame("Frame", nil, vGamblerFrame)
+	EnterUserButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	EnterUserButton:SetPoint("TOPLEFT", SetChannelButton, "TOPRIGHT", 3, 0)
 	EnterUserButton:SetSize(100, 22)
 	EnterUserButton:SetBackdrop(Backdrop)
@@ -834,7 +834,7 @@ local CreateGamblerFrame = function()
 	EnterUserButton.Label:SetShadowOffset(1, -1)
 	
 	-- User Roll
-	UserRollButton = CreateFrame("Frame", nil, vGamblerFrame)
+	UserRollButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	UserRollButton:SetPoint("TOPLEFT", EnterUserButton, "BOTTOMLEFT", 0, -3)
 	UserRollButton:SetSize(100, 22)
 	UserRollButton:SetBackdrop(Backdrop)
@@ -864,7 +864,7 @@ local CreateGamblerFrame = function()
 	UserRollButton.Label:SetShadowOffset(1, -1)
 	
 	-- Ban List
-	BanListButton = CreateFrame("Frame", nil, vGamblerFrame)
+	BanListButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	BanListButton:SetPoint("TOPLEFT", UserRollButton, "BOTTOMLEFT", 0, -3)
 	BanListButton:SetSize(100, 22)
 	BanListButton:SetBackdrop(Backdrop)
@@ -902,7 +902,7 @@ local CreateGamblerFrame = function()
 	BanListButton.Label:SetShadowOffset(1, -1)
 	
 	-- Reset Ban List
-	ResetBanListButton = CreateFrame("Frame", nil, vGamblerFrame)
+	ResetBanListButton = CreateFrame("Frame", nil, vGamblerFrame, "BackdropTemplate")
 	ResetBanListButton:SetPoint("TOPLEFT", BanListButton, "BOTTOMLEFT", 0, -3)
 	ResetBanListButton:SetSize(100, 22)
 	ResetBanListButton:SetBackdrop(Backdrop)
