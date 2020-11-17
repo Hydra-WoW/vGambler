@@ -1,4 +1,4 @@
-## Interface: 90100
+## Interface: 90002
 ## Author: Hydra
 ## Version: 1.06
 ## Title: vGambler
