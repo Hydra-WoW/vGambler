@@ -1,6 +1,6 @@
-## Interface: 90002
+## Interface: 90005
 ## Author: Hydra
-## Version: 1.07
+## Version: 1.08
 ## Title: vGambler
 ## Notes: Gamble away your hard earned gold!
 ## SavedVariables: vGambler, vGamblerBanList

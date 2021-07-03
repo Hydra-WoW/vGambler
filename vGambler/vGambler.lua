@@ -44,7 +44,7 @@ local EventGroups = {
 	
 	["GUILD"] = {
 		["CHAT_MSG_GUILD"] = true,
-		["CHAT_MSG_GUILD_LEADER"] = true,
+		--["CHAT_MSG_GUILD_LEADER"] = true,
 	},
 	
 	["SAY"] = {
@@ -291,7 +291,7 @@ local UpdateCustomChannels = function()
 	for i = 1, #CustomChannels do
 		tremove(CustomChannels, 1)
 	end
-
+	
 	local Name, Header, Collapsed, ChannelNumber
 	
 	for i = 1, GetNumDisplayChannels() do
@@ -303,7 +303,7 @@ local UpdateCustomChannels = function()
 	end
 end
 
-local OnEvent = function(self, event, message, sender, ...)
+local OnEvent = function(self, event, message, sender)
 	if (event == "CHAT_MSG_SYSTEM") then
 		if strfind(message, "%a- rolls %d-") then
 			local Name, Roll, Min, Max = strmatch(message, RollMatch)
